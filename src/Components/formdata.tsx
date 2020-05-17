@@ -36,9 +36,10 @@ class Formdata1 extends Component<any,any> {
             Name:'',
             PersonalMail:'',
             College:'',
-            Gender:'x',
+            Gender:'',
             Graduation:'',
             Skills:'',
+            checkedSkills: new Map()
         }
     }
      handlenameChange (event:any) {
@@ -51,16 +52,42 @@ class Formdata1 extends Component<any,any> {
       handleCollegeChange (event:any) {
         this.setState({ College : event.target.value });
       }
-      handlegender(x:IChoiceGroupOption,event:any){
+      handlegender(event:any){
           //console.log(this.state.Gender)
           //this.setState({ Gender : event.target.x.selectedKey.text});
-          debugger;
           //this.setState({ Gender : x.key});
-          this.setState({ Gender: x.key });
+          //this.setState({ Gender: x.key });         
+          this.setState({ Gender : event.text });
           console.log(this.state.Gender)
         }
+        handlegraduation(event:any){
+            //console.log(this.state.Gender)
+            //this.setState({ Gender : event.target.x.selectedKey.text});
+            debugger;
+            //this.setState({ Gender : x.key});
+            //this.setState({ Gender: x.key });         
+            this.setState({ Graduation : event.text });
+            console.log(this.state.Graduation)
+          }
+          handleSkills(event:any,isChecked:boolean){
+            //checked={!!this.state.checkedItems.get(item.name)}
+            debugger;
+            console.log("mounika")
+            if(this.state.checkedSkills.get(event.text)===false){
+                const x=()=>{
+                    return this.state.checkedSkills
+                }
+                this.setState({
+                    
+                    //this.state.checkedSkills : x.set(event.label,)
+                })
+                console.log(this.state.checkedSkills.get(event.label))
+
+            }  
+
+        }
     render() {
-        const {Name,PersonalMail,Gender}=this.state
+        const {Name,PersonalMail,Gender,Graduation}=this.state
         return (
             <Stack tokens={nestedStack}>
                 <Stack tokens={stackTokens} styles={stackStyles}>
@@ -71,16 +98,18 @@ class Formdata1 extends Component<any,any> {
                     <TextField label="College" value={this.state.College} onChange={event=>this.handleCollegeChange(event)}></TextField>
                 </Stack>
                 <Stack horizontal tokens={stackTokens}>
-                    <ChoiceGroup options={somegroup} label="Gender" value={this.state.Gender} required={true} onChanged={this.handlegender}/>
+                    <ChoiceGroup options={somegroup} label="Gender" required={true} onChanged={(event)=>this.handlegender(event)}/>
                     <p>{Gender}</p>
                 </Stack>
                 <Stack tokens={stackTokens}>
-                    <Dropdown placeholder="Select an option" label="Graduation" options={options1} styles={dropdownStyles}/>
+                    <Dropdown placeholder="Select an option" label="Graduation" options={options1} styles={dropdownStyles} onChanged={(event)=>this.handlegraduation(event)}/>
+                    <p>{Graduation}</p>
                     Skills
-                    <Checkbox label="java" />
-                    <Checkbox label="C" />
-                    <Checkbox label="C++" />
-                    <Checkbox label="Python" />
+                    
+                    <Checkbox label="java" checked={this.state.check} onChange={(event)=>this.handleSkills} />
+                    <Checkbox label="C" checked={this.state.checkedSkills.get("C")} onChange={(event)=>this.handleSkills}/>
+                    <Checkbox label="C++" onChange={(event)=>this.handleSkills}/>
+                    <Checkbox label="Python" onChange={(event)=>this.handleSkills}/>
                 </Stack>
                 <Stack styles={buttonStyles}>
                 <PrimaryButton label="Submit">Submit</PrimaryButton> 
