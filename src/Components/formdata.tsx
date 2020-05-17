@@ -1,14 +1,14 @@
-import React, { Component, Props } from 'react'
-import { TextField, IChoiceGroupProps } from '@fluentui/react';
+import React, { Component } from 'react'
+import { TextField } from '@fluentui/react';
 import { Stack, IStackTokens, IStackStyles } from '@fluentui/react';
 import { ChoiceGroup, IChoiceGroupOption } from '@fluentui/react'
 import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react'
 import { Checkbox } from '@fluentui/react'
-import {PrimaryButton} from '@fluentui/react'
+import { PrimaryButton } from '@fluentui/react'
 const stackStyles: Partial<IStackStyles> = { root: { width: 300 } };
 const buttonStyles: Partial<IStackStyles> = { root: { width: 100 } };
 
-const stackTokens = { childrenGap:10 };
+const stackTokens = { childrenGap: 10 };
 const nestedStack: IStackTokens = { childrenGap: 5 }
 const somegroup: IChoiceGroupOption[] = [
     { key: 'A', text: 'Male' },
@@ -29,53 +29,49 @@ const options1: IDropdownOption[] = [
     { key: '2023', text: '2023' },
 ];
 
-class Formdata1 extends Component<any,any> {
-    constructor(props:any){
+class Formdata1 extends Component<any, any> {
+    constructor(props: any) {
         super(props);
-        this.state={
-            Name:'',
-            PersonalMail:'',
-            College:'',
-            Gender:'x',
-            Graduation:'',
-            Skills:'',
+        this.state = {
+            Name: '',
+            PersonalMail: '',
+            College: '',
+            Gender: '',
+            Graduation: '',
+            Skills: '',
         }
     }
-     handlenameChange (event:any) {
-        this.setState({ Name : event.target.value });
-        console.log(this.state.Name)  
+    handlenameChange(event: any) {
+        this.setState({ Name: event.target.value });
+        console.log(this.state.Name)
     }
-      handlemailChange (event:any) {
-        this.setState({ PersonalMail : event.target.value });
-      }
-      handleCollegeChange (event:any) {
-        this.setState({ College : event.target.value });
-      }
-      handlegender(x:IChoiceGroupOption,event:any){
-          //console.log(this.state.Gender)
-          //this.setState({ Gender : event.target.x.selectedKey.text});
-          debugger;
-          //this.setState({ Gender : x.key});
-          this.setState({ Gender: x.key });
-          console.log(this.state.Gender)
-        }
+    handlemailChange(event: any) {
+        this.setState({ PersonalMail: event.target.value });
+    }
+    handleCollegeChange(event: any) {
+        this.setState({ College: event.target.value });
+    }
+    handlegender(value: any) {
+        this.setState({ Gender: value.text });
+    }
+
     render() {
-        const {Name,PersonalMail,Gender}=this.state
+        const { Name, PersonalMail, Gender } = this.state
         return (
             <Stack tokens={nestedStack}>
                 <Stack tokens={stackTokens} styles={stackStyles}>
-                    <TextField label="Name" value={this.state.Name} onChange={event=>this.handlenameChange(event)}></TextField>
+                    <TextField label="Name" value={this.state.Name} onChange={event => this.handlenameChange(event)}></TextField>
                     <p>Hi {Name}! How are you doing</p>
-                    <TextField label="Personal Mail" value={this.state.PersonalMail} onChange={event=>this.handlemailChange(event)}></TextField>
+                    <TextField label="Personal Mail" value={this.state.PersonalMail} onChange={event => this.handlemailChange(event)}></TextField>
                     <p>{Name} entered {PersonalMail}</p>
-                    <TextField label="College" value={this.state.College} onChange={event=>this.handleCollegeChange(event)}></TextField>
+                    <TextField label="College" value={this.state.College} onChange={event => this.handleCollegeChange(event)}></TextField>
                 </Stack>
                 <Stack horizontal tokens={stackTokens}>
-                    <ChoiceGroup options={somegroup} label="Gender" value={this.state.Gender} required={true} onChanged={this.handlegender}/>
+                    <ChoiceGroup options={somegroup} selectedKey={"B"} label="Gender" required={true} onChanged={(value)=>this.handlegender(value)} />
                     <p>{Gender}</p>
                 </Stack>
                 <Stack tokens={stackTokens}>
-                    <Dropdown placeholder="Select an option" label="Graduation" options={options1} styles={dropdownStyles}/>
+                    <Dropdown placeholder="Select an option" label="Graduation" options={options1} styles={dropdownStyles} />
                     Skills
                     <Checkbox label="java" />
                     <Checkbox label="C" />
@@ -83,9 +79,9 @@ class Formdata1 extends Component<any,any> {
                     <Checkbox label="Python" />
                 </Stack>
                 <Stack styles={buttonStyles}>
-                <PrimaryButton label="Submit">Submit</PrimaryButton> 
+                    <PrimaryButton label="Submit">Submit</PrimaryButton>
                 </Stack>
-                </Stack>
+            </Stack>
 
         )
     }
