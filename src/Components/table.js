@@ -7,17 +7,16 @@ export const table = (props) => {
 
   const { College, Gender, Name, showTable } = props.data;
 
-  // handleBack = () => {
-
-  // }
+  const handleBack = () => {
+    props.handleBack();
+  }
 
   return (
     <React.Fragment>
 
-      
-
+    
       <div className={showTable ? 'show' : 'hide'}>
-      <PrimaryButton label="Back" onClick={() => this.handleBack()}>Back</PrimaryButton>
+        <PrimaryButton label="Back" onClick={handleBack}>Back</PrimaryButton>
 
         <table>
           <tr>

@@ -1,5 +1,5 @@
-import React, { Component, Props } from 'react'
-import { TextField, IChoiceGroupProps } from '@fluentui/react';
+import React, { Component } from 'react'
+import { TextField } from '@fluentui/react';
 import { Stack, IStackTokens, IStackStyles } from '@fluentui/react';
 import { ChoiceGroup, IChoiceGroupOption } from '@fluentui/react'
 import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react'
@@ -14,8 +14,8 @@ const buttonStyles: Partial<IStackStyles> = { root: { width: 100 } };
 const stackTokens = { childrenGap: 10 };
 const nestedStack: IStackTokens = { childrenGap: 5 }
 const somegroup: IChoiceGroupOption[] = [
-    { key: 'A', text: 'Male' },
-    { key: 'B', text: 'Female' },
+    { key: 'M', text: 'Male' },
+    { key: 'F', text: 'Female' },
 ];
 
 const dropdownStyles: Partial<IDropdownStyles> = {
@@ -44,7 +44,8 @@ class Formdata1 extends Component<any, any> {
             Skills: '',
             checkedSkills: [],
             showTable: false,
-            errMsg: ''
+            errMsg: '',
+            showForm: true
         }
     }
     handlenameChange(event: any) {
@@ -107,13 +108,17 @@ class Formdata1 extends Component<any, any> {
                 errMsg: 'some fields are missing data'
             })
         }
-        
 
     }
-    render() {
-        // const { name, PersonalMail, Gender, Graduation, checkedSkills, flag } = this.state
-        return (
 
+    handleBack =() => {
+    
+        this.setState({showForm: true, showTable: false, Name: '', PersonalMail:'', College:'', Gender:'', Graduation:'', checkedSkills:[] })
+    }
+
+    render() {
+        
+        return (
             <React.Fragment>
                 <div className={!this.state.showTable ? 'show' : 'hide'}>
                     <Stack tokens={nestedStack}>
@@ -147,7 +152,7 @@ class Formdata1 extends Component<any, any> {
                         </Stack>
                     </Stack>
                 </div>
-                <Table data={this.state} showTable={this.state.showTable} />
+                <Table data={this.state} showTable={this.state.showTable} handleBack={this.handleBack}/>
 
             </React.Fragment>
 
