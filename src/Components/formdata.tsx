@@ -43,7 +43,8 @@ class Formdata1 extends Component<any, any> {
             Graduation: '',
             Skills: '',
             checkedSkills: [],
-            flag: ''
+            showTable: false,
+            errMsg: ''
         }
     }
     handlenameChange(event: any) {
@@ -97,15 +98,24 @@ class Formdata1 extends Component<any, any> {
         }
     }
     handleClick = (event: any) => {
-        // let flag=true;  
-        this.setState({ flag: "onclick" })
-        return <Table data={this.state} />
+        
+        const { Name, PersonalMail, College, Gender, Graduation, checkedSkills } = this.state;
+        if (Name !== '' && PersonalMail !== '' && College !== '' && Gender !== '' && Graduation !== '' && checkedSkills.length !== 0) {
+            this.setState({ flag: "onclick", showTable: true, data: this.state, errMsg: '' })
+        } else {
+            this.setState({
+                errMsg: 'some fields are missing data'
+            })
+        }
+        
+
     }
     render() {
-        const { name, PersonalMail, Gender, Graduation, checkedSkills, flag } = this.state
+        // const { name, PersonalMail, Gender, Graduation, checkedSkills, flag } = this.state
         return (
-           
+
             <React.Fragment>
+                <div className={!this.state.showTable ? 'show' : 'hide'}>
                     <Stack tokens={nestedStack}>
                         <Stack tokens={stackTokens} styles={stackStyles}>
                             <TextField label="Name" value={this.state.Name} onChange={event => this.handlenameChange(event)}></TextField>
@@ -121,21 +131,23 @@ class Formdata1 extends Component<any, any> {
                         <Stack tokens={stackTokens}>
                             <Dropdown placeholder="Select an option" label="Graduation" options={options1} styles={dropdownStyles} onChanged={(event) => this.handlegraduation(event)} />
                             {/* <p>{Graduation}</p> */}
-                        Skills
-
+                            Skills
+    
                     <Checkbox label="java" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
                             <Checkbox label="C" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
                             <Checkbox label="C++" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
                             <Checkbox label="Python" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
                         </Stack>
                         {/* <p>{checkedSkills}</p> */}
+                        <div className="error">{this.state.errMsg}</div>
                         <Stack styles={buttonStyles}>
+                            
                             {/* <Table refs="table" data={this.state}/> */}
                             <PrimaryButton label="Submit" onClick={(event) => this.handleClick(event)}>Submit</PrimaryButton>
                         </Stack>
                     </Stack>
-
-                {/* <Table data={this.state}/>} */}
+                </div>
+                <Table data={this.state} showTable={this.state.showTable} />
 
             </React.Fragment>
 

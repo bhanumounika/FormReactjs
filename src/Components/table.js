@@ -1,13 +1,24 @@
 import React from 'react';
+import { PrimaryButton } from '@fluentui/react';
+
+
 export const table = (props) => {
   console.log(props);
 
-  const { College, Gender, Name } = props.data;
+  const { College, Gender, Name, showTable } = props.data;
+
+  // handleBack = () => {
+
+  // }
 
   return (
     <React.Fragment>
 
-      <div>
+      
+
+      <div className={showTable ? 'show' : 'hide'}>
+      <PrimaryButton label="Back" onClick={() => this.handleBack()}>Back</PrimaryButton>
+
         <table>
           <tr>
             <td>  Name: {Name} </td>
