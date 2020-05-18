@@ -42,7 +42,8 @@ class Formdata1 extends Component<any, any> {
             Gender: '',
             Graduation: '',
             Skills: '',
-            checkedSkills: []
+            checkedSkills: [],
+            flag: ''
         }
     }
     handlenameChange(event: any) {
@@ -66,7 +67,7 @@ class Formdata1 extends Component<any, any> {
     handlegraduation(event: any) {
         //console.log(this.state.Gender)
         //this.setState({ Gender : event.target.x.selectedKey.text});
-        debugger;
+        //debugger;
         //this.setState({ Gender : x.key});
         //this.setState({ Gender: x.key });         
         this.setState({ Graduation: event.text });
@@ -76,11 +77,9 @@ class Formdata1 extends Component<any, any> {
         const { checkedSkills } = this.state; // destructing
         const selectedLabel = event.target.getAttribute("aria-label");
 
-        //checked={!!this.state.checkedItems.get(item.name)}
-        debugger;
+        //debugger;
         console.log("mounika");
         if (isChecked === true) {
-
             this.setState({
                 checkedSkills: checkedSkills.concat(selectedLabel)
             });
@@ -96,53 +95,48 @@ class Formdata1 extends Component<any, any> {
                 checkedSkills: checkedSkills
             });
         }
-
-
-        // if(this.state.checkedSkills.get(event.text)===false){
-        //     const x=()=>{
-        //         return this.state.checkedSkills
-        //     }
-        //     this.setState({
-
-        //         //this.state.checkedSkills : x.set(event.label,)
-        //     })
-        //     console.log(this.state.checkedSkills.get(event.label))
-
-        // }  
-
+    }
+    handleClick = (event: any) => {
+        // let flag=true;  
+        this.setState({ flag: "onclick" })
+        return <Table data={this.state} />
     }
     render() {
-        const { Name, PersonalMail, Gender, Graduation } = this.state
+        const { name, PersonalMail, Gender, Graduation, checkedSkills, flag } = this.state
         return (
+           
             <React.Fragment>
-                <Stack tokens={nestedStack}>
-                    <Stack tokens={stackTokens} styles={stackStyles}>
-                        <TextField label="Name" value={this.state.Name} onChange={event => this.handlenameChange(event)}></TextField>
-                        <p>Hi {Name}! How are you doing</p>
-                        <TextField label="Personal Mail" value={this.state.PersonalMail} onChange={event => this.handlemailChange(event)}></TextField>
-                        <p>{Name} entered {PersonalMail}</p>
-                        <TextField label="College" value={this.state.College} onChange={event => this.handleCollegeChange(event)}></TextField>
-                    </Stack>
-                    <Stack horizontal tokens={stackTokens}>
-                        <ChoiceGroup options={somegroup} label="Gender" required={true} onChanged={(event) => this.handlegender(event)} />
-                        <p>{Gender}</p>
-                    </Stack>
-                    <Stack tokens={stackTokens}>
-                        <Dropdown placeholder="Select an option" label="Graduation" options={options1} styles={dropdownStyles} onChanged={(event) => this.handlegraduation(event)} />
-                        <p>{Graduation}</p>
+                    <Stack tokens={nestedStack}>
+                        <Stack tokens={stackTokens} styles={stackStyles}>
+                            <TextField label="Name" value={this.state.Name} onChange={event => this.handlenameChange(event)}></TextField>
+                            {/* <p>Hi {Name}! How are you doing</p> */}
+                            <TextField label="Personal Mail" value={this.state.PersonalMail} onChange={event => this.handlemailChange(event)}></TextField>
+                            {/* <p>{Name} entered {PersonalMail}</p> */}
+                            <TextField label="College" value={this.state.College} onChange={event => this.handleCollegeChange(event)}></TextField>
+                        </Stack>
+                        <Stack horizontal tokens={stackTokens}>
+                            <ChoiceGroup options={somegroup} label="Gender" required={true} onChanged={(event) => this.handlegender(event)} />
+                            {/* <p>{Gender}</p> */}
+                        </Stack>
+                        <Stack tokens={stackTokens}>
+                            <Dropdown placeholder="Select an option" label="Graduation" options={options1} styles={dropdownStyles} onChanged={(event) => this.handlegraduation(event)} />
+                            {/* <p>{Graduation}</p> */}
                         Skills
-    
-                    <Checkbox label="java" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
-                        <Checkbox label="C" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
-                        <Checkbox label="C++" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
-                        <Checkbox label="Python" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
-                    </Stack>
-                    <Stack styles={buttonStyles}>
-                        <PrimaryButton label="Submit">Submit</PrimaryButton>
-                    </Stack>
-                </Stack>
 
-                <Table data={this.state} />
+                    <Checkbox label="java" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
+                            <Checkbox label="C" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
+                            <Checkbox label="C++" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
+                            <Checkbox label="Python" onChange={(event, isChecked) => this.handleSkills(event, isChecked)} />
+                        </Stack>
+                        {/* <p>{checkedSkills}</p> */}
+                        <Stack styles={buttonStyles}>
+                            {/* <Table refs="table" data={this.state}/> */}
+                            <PrimaryButton label="Submit" onClick={(event) => this.handleClick(event)}>Submit</PrimaryButton>
+                        </Stack>
+                    </Stack>
+
+                {/* <Table data={this.state}/>} */}
+
             </React.Fragment>
 
         )
